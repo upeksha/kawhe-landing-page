@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  /* h-16 (4rem) + 1rem breathing room */
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Palette */
+  --espresso: #2B1E18;
+  --cocoa: #3A2A22;
+  --forest: #1F3B2C;
+  --moss: #4F7D54;
+  --sage: #A7C7A1;
+  --oat: #F3EFE7;
+  --clay: #C96A3B;
+  --honey: #D6A24A;
+
+  /* Semantic mappings */
+  --background: var(--oat);
+  --foreground: var(--espresso);
+
+  --primary: var(--forest);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--cocoa);
+  --secondary-foreground: var(--oat);
+
+  --accent: var(--clay);
+  --accent-foreground: #ffffff;
 }
 
 @theme inline {
+  --color-espresso: var(--espresso);
+  --color-cocoa: var(--cocoa);
+  --color-forest: var(--forest);
+  --color-moss: var(--moss);
+  --color-sage: var(--sage);
+  --color-oat: var(--oat);
+  --color-clay: var(--clay);
+  --color-honey: var(--honey);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.5rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
