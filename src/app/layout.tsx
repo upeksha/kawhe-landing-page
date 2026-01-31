@@ -14,14 +14,14 @@ export const metadata: Metadata = {
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { getNavLinks } from "@/lib/wordpress";
+import { getNavLinks, type NavLink } from "@/lib/wordpress";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let navLinks = [];
+  let navLinks: NavLink[] = [];
   try {
     navLinks = await getNavLinks();
   } catch (e) {
