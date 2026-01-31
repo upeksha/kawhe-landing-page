@@ -1,6 +1,11 @@
-const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "https://your-wordpress-site.com/graphql";
+const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "https://cms.kawhe.shop/graphql";
+const MENU_LOCATION = process.env.NEXT_PUBLIC_WORDPRESS_MENU_LOCATION || "MENU_1";
 
-export async function fetchAPI(query: string, { variables }: { variables?: any } = {}) {
+export async function fetchAPI(
+  query: string,
+  { variables }: { variables?: Record<string, unknown> } = {},
+  options?: { revalidate?: number }
+) {
   try {
     const res = await fetch(API_URL, {
       method: "POST",
@@ -11,6 +16,7 @@ export async function fetchAPI(query: string, { variables }: { variables?: any }
         query,
         variables,
       }),
+      next: options?.revalidate !== undefined ? { revalidate: options.revalidate } : undefined,
     });
 
     const json = await res.json();
@@ -54,18 +60,38 @@ export interface NavLink {
   path: string;
 }
 
-export async function getNavLinks() {
-  const data = await fetchAPI(`
-    query GetMenu {
-      menuItems(where: {location: PRIMARY}) {
+/** Menu item shape returned by WPGraphQL */
+interface WordPressMenuItem {
+  label?: string | null;
+  url?: string | null;
+  path?: string | null;
+  title?: string | null;
+}
+
+export async function getNavLinks(): Promise<NavLink[]> {
+  const data = await fetchAPI(
+    `
+    query GetMenu($location: MenuLocationEnum!) {
+      menuItems(where: { location: $location }, first: 50) {
         nodes {
           label
+          url
           path
         }
       }
     }
-  `);
-  return data?.menuItems?.nodes || [];
+  `,
+    { variables: { location: MENU_LOCATION } },
+    { revalidate: 60 }
+  );
+
+  const nodes = (data?.menuItems?.nodes ?? []) as WordPressMenuItem[];
+  return nodes
+    .filter((node) => node?.label != null)
+    .map((node) => ({
+      label: String(node.label ?? node.title ?? ""),
+      path: String(node.url ?? node.path ?? "#"),
+    }));
 }
 
 export async function getAllPosts() {

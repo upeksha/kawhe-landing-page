@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cms.kawhe.shop.moahost.com',
+      },
+      {
+        protocol: 'https',
         hostname: '*.gravatar.com',
       },
     ],
