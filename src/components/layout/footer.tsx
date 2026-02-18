@@ -154,8 +154,12 @@ export function Footer({ productLinks, companyLinks }: FooterProps) {
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
                     <div>© {new Date().getFullYear()} Kawhe Inc. All rights reserved.</div>
                     <div className="flex gap-6">
-                        <span className="hover:text-white cursor-pointer">Privacy Policy</span>
-                        <span className="hover:text-white cursor-pointer">Terms of Service</span>
+                        <Link href="/privacy-policy" className="hover:text-white transition-colors">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms-of-service" className="hover:text-white transition-colors">
+                            Terms of Service
+                        </Link>
                     </div>
                 </div>
             </Container>

@@ -158,3 +158,92 @@ export async function getPostBySlug(slug: string) {
   });
   return data?.post;
 }
+
+/** WordPress page (e.g. Privacy Policy, Terms of Service) */
+export interface WpPage {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  date?: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
+}
+
+export async function getAllPages(): Promise<WpPage[]> {
+  const data = await fetchAPI(
+    `
+    query GetAllPages {
+      pages(first: 100, where: { status: PUBLISH }) {
+        nodes {
+          id
+          title
+          slug
+          content
+          date
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+  `,
+    {},
+    { revalidate: 60 }
+  );
+  return data?.pages?.nodes ?? [];
+}
+
+/**
+ * Fetches a single WordPress page by slug or URI.
+ * Tries URI first (required by WPGraphQL PageIdType when using index.php permalinks).
+ */
+export async function getPageBySlug(slug: string): Promise<WpPage | null> {
+  // WPGraphQL page query uses PageIdType: DATABASE_ID, ID, URI (no SLUG).
+  // Try URI variants common with index.php permalinks.
+  const uriCandidates = [
+    `/${slug}`,
+    slug,
+    `index.php/${slug}`,
+    `index.php/${slug}/`,
+  ];
+
+  for (const uri of uriCandidates) {
+    const data = await fetchAPI(
+      `
+      query GetPage($id: ID!, $idType: PageIdType!) {
+        page(id: $id, idType: $idType) {
+          id
+          title
+          slug
+          content
+          date
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    `,
+      {
+        variables: {
+          id: uri,
+          idType: "URI",
+        },
+      },
+      { revalidate: 60 }
+    );
+    if (data?.page) return data.page;
+  }
+
+  return null;
+}
