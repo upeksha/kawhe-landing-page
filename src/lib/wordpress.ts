@@ -32,12 +32,20 @@ export async function fetchAPI(
   }
 }
 
+export interface PostCategory {
+  name: string;
+  slug: string;
+}
+
 export interface Post {
   id: string;
   title: string;
   slug: string;
   excerpt: string;
   date: string;
+  categories?: {
+    nodes: PostCategory[];
+  };
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -94,35 +102,179 @@ export async function getNavLinks(): Promise<NavLink[]> {
     }));
 }
 
+/** Slug for the FAQ category – posts in this category are excluded from the blog. */
+const FAQ_CATEGORY_SLUG = "faq";
+
+async function getCategoryIdBySlug(slug: string): Promise<number | null> {
+  const data = await fetchAPI(
+    `
+    query GetCategoryBySlug($id: ID!) {
+      category(id: $id, idType: SLUG) {
+        databaseId
+      }
+    }
+  `,
+    { variables: { id: slug } },
+    { revalidate: 60 }
+  );
+  const id = data?.category?.databaseId;
+  return id != null ? Number(id) : null;
+}
+
+const POST_LIST_FIELDS = `
+  id
+  title
+  slug
+  excerpt
+  date
+  featuredImage {
+    node {
+      sourceUrl
+      altText
+    }
+  }
+  author {
+    node {
+      name
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
+const POST_LIST_FIELDS_WITH_CATEGORIES = `
+  id
+  title
+  slug
+  excerpt
+  date
+  categories(first: 10) {
+    nodes {
+      slug
+    }
+  }
+  featuredImage {
+    node {
+      sourceUrl
+      altText
+    }
+  }
+  author {
+    node {
+      name
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
+/** Exclude posts that are in the FAQ category (client-side so blog works regardless of API support). */
+function excludeFaqPosts<T extends { categories?: { nodes?: { slug: string }[] } }>(posts: T[]): T[] {
+  return posts.filter(
+    (post) => !post.categories?.nodes?.some((c) => c.slug?.toLowerCase() === FAQ_CATEGORY_SLUG)
+  );
+}
+
 export async function getAllPosts() {
-  const data = await fetchAPI(`
-    query GetAllPosts {
-      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
+  // Fetch with categories so we can exclude FAQ posts client-side
+  const data = await fetchAPI(
+    `query GetAllPosts {
+      posts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
+        nodes { ${POST_LIST_FIELDS_WITH_CATEGORIES} }
+      }
+    }`,
+    {},
+    { revalidate: 60 }
+  );
+
+  let nodes = data?.posts?.nodes ?? [];
+
+  // If query failed, retry without categories (e.g. schema doesn't support categories on Post)
+  if (nodes.length === 0 && !data?.posts) {
+    const fallback = await fetchAPI(
+      `query GetAllPostsFallback {
+        posts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
+          nodes { ${POST_LIST_FIELDS} }
+        }
+      }`,
+      {},
+      { revalidate: 60 }
+    );
+    nodes = fallback?.posts?.nodes ?? [];
+    return nodes;
+  }
+
+  const filtered = excludeFaqPosts(nodes);
+  return filtered.slice(0, 20);
+}
+
+/** Shape for FAQ items: posts in the "faq" category (title = question, content = answer) */
+export interface FaqPost {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export async function getPostsByCategoryName(categoryName: string): Promise<FaqPost[]> {
+  // Try filtering by categoryName first (common in WPGraphQL)
+  let data = await fetchAPI(
+    `
+    query GetPostsByCategory($categoryName: String!) {
+      posts(first: 50, where: { categoryName: $categoryName, orderby: { field: DATE, order: ASC } }) {
         nodes {
           id
           title
-          slug
-          excerpt
-          date
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          author {
-            node {
-              name
-              avatar {
-                url
-              }
-            }
-          }
+          content
         }
       }
     }
-  `);
-  return data?.posts?.nodes || [];
+  `,
+    { variables: { categoryName } },
+    { revalidate: 60 }
+  );
+  let nodes = data?.posts?.nodes ?? [];
+
+  // Fallback: some WPGraphQL setups use categoryId; resolve category by slug then query posts
+  if (nodes.length === 0) {
+    const catData = await fetchAPI(
+      `
+      query GetCategoryBySlug($id: ID!) {
+        category(id: $id, idType: SLUG) {
+          databaseId
+        }
+      }
+    `,
+      { variables: { id: categoryName } },
+      { revalidate: 60 }
+    );
+    const categoryId = catData?.category?.databaseId;
+    if (categoryId != null) {
+      const postData = await fetchAPI(
+        `
+        query GetPostsByCategoryId($categoryId: Int!) {
+          posts(first: 50, where: { categoryId: $categoryId, orderby: { field: DATE, order: ASC } }) {
+            nodes {
+              id
+              title
+              content
+            }
+          }
+        }
+      `,
+        { variables: { categoryId } },
+        { revalidate: 60 }
+      );
+      nodes = postData?.posts?.nodes ?? [];
+    }
+  }
+
+  return nodes.map((n: { id: string; title: string; content: string }) => ({
+    id: n.id,
+    title: n.title,
+    content: n.content ?? "",
+  }));
 }
 
 export async function getPostBySlug(slug: string) {
@@ -166,6 +318,8 @@ export interface WpPage {
   slug: string;
   content: string;
   date?: string;
+  /** Last modified date (prefer over date for "Last updated") */
+  modified?: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -185,6 +339,7 @@ export async function getAllPages(): Promise<WpPage[]> {
           slug
           content
           date
+          modified
           featuredImage {
             node {
               sourceUrl
@@ -225,6 +380,7 @@ export async function getPageBySlug(slug: string): Promise<WpPage | null> {
           slug
           content
           date
+          modified
           featuredImage {
             node {
               sourceUrl

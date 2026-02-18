@@ -57,10 +57,10 @@ export default async function WordPressPage({
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
               {page.title}
             </h1>
-            {page.date && (
+            {(page.modified ?? page.date) && (
               <p className="text-sm text-espresso/60">
                 Last updated{" "}
-                {new Date(page.date).toLocaleDateString("en-NZ", {
+                {new Date(page.modified ?? page.date!).toLocaleDateString("en-NZ", {
                   dateStyle: "long",
                 })}
               </p>

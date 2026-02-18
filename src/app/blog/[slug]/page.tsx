@@ -34,8 +34,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 ) : (
                     <article className="max-w-3xl mx-auto">
                         <header className="mb-12">
-                            <div className="flex items-center gap-4 text-sm font-medium text-forest mb-6">
-                                <span>{new Date(post.date).toLocaleDateString("en-NZ", { dateStyle: 'full' })}</span>
+                            <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-forest mb-6">
+                                <span>{new Date(post.date).toLocaleDateString("en-NZ", { dateStyle: "full" })}</span>
+                                {post.categories?.nodes?.filter((c) => c.slug !== "faq").length ? (
+                                    <>
+                                        <span className="text-cocoa/30">·</span>
+                                        {post.categories.nodes
+                                            .filter((c) => c.slug !== "faq")
+                                            .map((cat) => (
+                                                <span
+                                                    key={cat.slug}
+                                                    className="text-sm font-medium text-forest/80 bg-forest/10 px-2.5 py-1 rounded-full"
+                                                >
+                                                    {cat.name}
+                                                </span>
+                                            ))}
+                                    </>
+                                ) : null}
                             </div>
                             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
                                 {post.title}

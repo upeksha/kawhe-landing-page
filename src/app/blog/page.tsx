@@ -60,8 +60,25 @@ export default async function BlogPage() {
                                     )}
                                 </div>
                                 <div className="p-8 flex-1 flex flex-col">
-                                    <div className="flex items-center gap-4 text-xs font-medium text-forest mb-4">
-                                        <span>{new Date(post.date).toLocaleDateString("en-NZ", { dateStyle: 'medium' })}</span>
+                                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                                        <span className="text-xs font-medium text-forest">
+                                            {new Date(post.date).toLocaleDateString("en-NZ", { dateStyle: "medium" })}
+                                        </span>
+                                        {post.categories?.nodes?.filter((c) => c.slug !== "faq").length ? (
+                                            <>
+                                                <span className="text-cocoa/30">·</span>
+                                                {post.categories.nodes
+                                                    .filter((c) => c.slug !== "faq")
+                                                    .map((cat) => (
+                                                        <span
+                                                            key={cat.slug}
+                                                            className="text-xs font-medium text-forest/80 bg-forest/10 px-2 py-0.5 rounded-full"
+                                                        >
+                                                            {cat.name}
+                                                        </span>
+                                                    ))}
+                                            </>
+                                        ) : null}
                                     </div>
                                     <h2 className="text-xl font-bold mb-3 group-hover:text-forest transition-colors leading-snug">
                                         {post.title}

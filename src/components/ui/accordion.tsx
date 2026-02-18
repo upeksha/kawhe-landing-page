@@ -42,19 +42,33 @@ export function AccordionItem({ title, children, isOpen, onClick }: AccordionIte
     )
 }
 
-export function Accordion({ items }: { items: { q: string; a: string }[] }) {
+export interface AccordionItemType {
+    q: string
+    a: string
+    /** When true, render answer as HTML (e.g. from WordPress content) */
+    isHtml?: boolean
+}
+
+export function Accordion({ items }: { items: AccordionItemType[] }) {
     const [openIndex, setOpenIndex] = React.useState<number | null>(null)
 
     return (
         <div className="w-full">
             {items.map((item, index) => (
                 <AccordionItem
-                    key={index}
+                    key={item.q + index}
                     title={item.q}
                     isOpen={openIndex === index}
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 >
-                    {item.a}
+                    {item.isHtml ? (
+                        <div
+                            className="blog-content text-sm text-zinc-600"
+                            dangerouslySetInnerHTML={{ __html: item.a }}
+                        />
+                    ) : (
+                        item.a
+                    )}
                 </AccordionItem>
             ))}
         </div>

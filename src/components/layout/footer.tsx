@@ -3,44 +3,33 @@
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { Instagram, Twitter, Linkedin, ArrowRight } from "lucide-react"
-import { Accordion } from "@/components/ui/accordion"
+import { Accordion, type AccordionItemType } from "@/components/ui/accordion"
 import Link from "next/link"
 import Image from "next/image"
 
-const faqs = [
-    {
-        q: "Does the customer need to download an app?",
-        a: "No. Customers add Kawhe to Apple Wallet or Google Wallet."
-    },
-    {
-        q: "How do customers join?",
-        a: "They scan a QR code or open a link and add the pass in seconds."
-    },
-    {
-        q: "How do we stamp visits?",
-        a: "Staff stamp with a quick scan/tap workflow designed for busy counters."
-    },
-    {
-        q: "Can we run limited-time offers?",
-        a: "Yes — you can run simple promotions and adjust rewards without reprinting anything."
-    },
-    {
-        q: "Is it easy to set up?",
-        a: "Yes. Most cafés can launch the same day."
-    },
-    {
-        q: "Do you support multiple stores?",
-        a: "Yes — Kawhe supports multi-store setups (best for small groups and franchises)."
-    }
+const defaultFaqs: AccordionItemType[] = [
+    { q: "Does the customer need to download an app?", a: "No. Customers add Kawhe to Apple Wallet or Google Wallet." },
+    { q: "How do customers join?", a: "They scan a QR code or open a link and add the pass in seconds." },
+    { q: "How do we stamp visits?", a: "Staff stamp with a quick scan/tap workflow designed for busy counters." },
+    { q: "Can we run limited-time offers?", a: "Yes — you can run simple promotions and adjust rewards without reprinting anything." },
+    { q: "Is it easy to set up?", a: "Yes. Most cafés can launch the same day." },
+    { q: "Do you support multiple stores?", a: "Yes — Kawhe supports multi-store setups (best for small groups and franchises)." }
 ]
 
-export function FAQ() {
+interface FAQProps {
+    /** FAQ items from WordPress (category "faq"). When provided, these are shown instead of defaults. */
+    items?: AccordionItemType[] | null
+}
+
+export function FAQ({ items }: FAQProps) {
+    const faqItems = items && items.length > 0 ? items : defaultFaqs
+
     return (
         <section className="py-24 bg-white">
             <Container>
                 <div className="max-w-2xl mx-auto mb-20">
                     <h2 className="text-3xl font-bold text-espresso mb-8 text-center">Frequently Asked Questions</h2>
-                    <Accordion items={faqs} />
+                    <Accordion items={faqItems} />
                 </div>
 
                 {/* Final CTA */}
