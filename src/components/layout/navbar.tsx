@@ -76,11 +76,11 @@ export function Navbar({ links }: NavbarProps) {
 
                     {/* Desktop CTA: visible from sm up, hidden when mobile menu would show */}
                     <div className="hidden md:flex items-center gap-3 lg:gap-4">
-                        <Link href="/demo" className="text-sm font-medium text-espresso hover:text-forest cursor-pointer">
-                            Book a demo
+                        <Link href="https://app.kawhe.shop/login" className="text-sm font-medium text-espresso hover:text-forest cursor-pointer">
+                            Log in
                         </Link>
                         <Button size="sm" variant="default" className="rounded-full" asChild>
-                            <Link href="/signup">Start free trial</Link>
+                            <Link href="https://app.kawhe.shop/register">Sign up</Link>
                         </Button>
                     </div>
 
@@ -119,15 +119,15 @@ export function Navbar({ links }: NavbarProps) {
                     ))}
                     <div className="mt-4 pt-4 border-t border-cocoa/10 flex flex-col gap-2">
                         <Link
-                            href="/demo"
+                            href="https://app.kawhe.shop/login"
                             className="block py-3 px-4 text-base font-medium text-espresso hover:text-forest rounded-lg hover:bg-cocoa/5 transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            Book a demo
+                            Log in
                         </Link>
                         <Button size="default" variant="default" className="rounded-full w-full justify-center" asChild>
-                            <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
-                                Start free trial
+                            <Link href="https://app.kawhe.shop/register" onClick={() => setMobileMenuOpen(false)}>
+                                Sign up
                             </Link>
                         </Button>
                     </div>
