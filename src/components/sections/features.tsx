@@ -1,57 +1,92 @@
 "use client"
 
 import { Container } from "@/components/ui/container"
+import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import { Smartphone, Bell, BarChart3 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
-const features = [
+const featureBlocks = [
     {
-        icon: Smartphone,
-        title: "Stamp instantly",
-        description: "Add a stamp with a quick scan or tap. Customers see progress update immediately — no guessing, no lost cards."
+        title: "Turn one-time visitors into",
+        highlight: "loyal regulars",
+        highlightColor: "bg-brand",
+        description: "Kawhe lets you create a digital loyalty program directly in Apple Wallet and Google Wallet. Customers collect points or stamps and you motivate them to return using rewards and push notifications.",
+        cta: "Launch your loyalty program",
+        ctaVariant: "outline-brand" as const,
+        image: "/iphone.png",
+        bgColor: "bg-brand",
+        reverse: false,
     },
     {
-        icon: Bell,
-        title: "No app. No friction.",
-        description: "Customers keep it in Apple Wallet or Google Wallet — right where they already pay. One pass, always available."
+        title: "Create",
+        highlight: "a new revenue stream",
+        highlightColor: "bg-purple",
+        titleSuffix: "for your business with digital vouchers",
+        description: "Earn even outside your opening hours thanks to digital vouchers that customers save to Apple Wallet and Google Wallet.",
+        cta: "Launch digital vouchers",
+        ctaVariant: "outline-brand" as const,
+        image: "/iphone.png",
+        bgColor: "bg-purple",
+        reverse: true,
     },
     {
-        icon: BarChart3,
-        title: "Know what’s working",
-        description: "See adds, active customers, redemptions, and performance by offer — without complicated reporting."
-    }
+        title: "Manage invite-only VIP cards with",
+        highlight: "full control and analytics",
+        highlightColor: "bg-yellow",
+        description: "Give selected customers exclusive VIP status with special perks. You choose who gets the card and what benefits they receive.",
+        cta: "Get started with VIP cards",
+        ctaVariant: "outline-yellow" as const,
+        image: "/iphone.png",
+        bgColor: "bg-yellow",
+        reverse: false,
+    },
 ]
 
 export function Features() {
     return (
-        <section className="py-24 bg-white" id="features">
+        <section className="py-16 md:py-24" id="features">
             <Container>
-                <div className="text-center max-w-2xl mx-auto mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-espresso sm:text-4xl mb-4">
-                        Loyalty that lives in your customer’s Wallet.
-                    </h2>
-                    <p className="text-lg text-zinc-600">
-                        Powerful tools integrated directly into the wallet passes your customers already love.
-                    </p>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-8">
-                    {features.map((feature, index) => (
+                <div className="space-y-24 md:space-y-32">
+                    {featureBlocks.map((block, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.6 }}
                             viewport={{ once: true }}
-                            className="group p-8 rounded-3xl bg-oat/50 border border-cocoa/10 hover:bg-white hover:shadow-xl hover:shadow-cocoa/5 hover:-translate-y-1 transition-all duration-300"
+                            className={`flex flex-col ${block.reverse ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-12 lg:gap-20`}
                         >
-                            <div className="h-12 w-12 rounded-2xl bg-forest/10 flex items-center justify-center mb-6 group-hover:bg-forest/20 transition-colors">
-                                <feature.icon className="h-6 w-6 text-forest" />
+                            <div className="flex-1 max-w-xl">
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight mb-6">
+                                    {block.title}{" "}
+                                    <span className={`${block.highlightColor} text-white px-2 py-0.5 inline-block`}>
+                                        {block.highlight}
+                                    </span>
+                                    {block.titleSuffix && <> {block.titleSuffix}</>}
+                                </h2>
+                                <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
+                                    {block.description}
+                                </p>
+                                <Button variant={block.ctaVariant} className="rounded-lg" asChild>
+                                    <Link href="/signup">
+                                        {block.cta} <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Link>
+                                </Button>
                             </div>
-                            <h3 className="text-xl font-bold text-espresso mb-3">{feature.title}</h3>
-                            <p className="text-zinc-600 leading-relaxed">
-                                {feature.description}
-                            </p>
+
+                            <div className="flex-1 relative">
+                                <div className={`${block.bgColor} rounded-[2rem] p-8 md:p-12 flex items-center justify-center`}>
+                                    <Image
+                                        src={block.image}
+                                        alt={block.highlight}
+                                        width={240}
+                                        height={480}
+                                        className="w-full max-w-[200px] md:max-w-[240px] h-auto drop-shadow-2xl"
+                                    />
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

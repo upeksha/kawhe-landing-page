@@ -3,43 +3,50 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  /* h-16 (4rem) + 1rem breathing room */
 }
 
 :root {
-  /* Brand Palette */
-  --espresso: #2B1E18;
-  --cocoa: #3A2A22;
-  --forest: #1F3B2C;
-  --moss: #4F7D54;
-  --sage: #A7C7A1;
-  --oat: #F3EFE7;
-  --clay: #C96A3B;
-  --honey: #D6A24A;
+  /* Brand Palette — Rewardly-inspired vibrant colors */
+  --brand: #5B51FF;
+  --brand-dark: #4840CC;
+  --brand-light: #E8E6FF;
+  --pink: #F0C8F0;
+  --purple: #E5B5FF;
+  --yellow: #FFD93D;
+  --yellow-light: #FFF4CC;
+  --mint: #4ECDC4;
+  --dark: #1A1A2E;
+  --dark-surface: #232340;
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --bg-white: #FFFFFF;
+  --bg-light: #F5F6F8;
 
   /* Semantic mappings */
-  --background: var(--oat);
-  --foreground: var(--espresso);
+  --background: var(--bg-white);
+  --foreground: var(--text-primary);
 
-  --primary: var(--forest);
+  --primary: var(--brand);
   --primary-foreground: #ffffff;
 
-  --secondary: var(--cocoa);
-  --secondary-foreground: var(--oat);
+  --secondary: var(--dark);
+  --secondary-foreground: #ffffff;
 
-  --accent: var(--clay);
-  --accent-foreground: #ffffff;
+  --accent: var(--yellow);
+  --accent-foreground: var(--text-primary);
 }
 
 @theme inline {
-  --color-espresso: var(--espresso);
-  --color-cocoa: var(--cocoa);
-  --color-forest: var(--forest);
-  --color-moss: var(--moss);
-  --color-sage: var(--sage);
-  --color-oat: var(--oat);
-  --color-clay: var(--clay);
-  --color-honey: var(--honey);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-pink: var(--pink);
+  --color-purple: var(--purple);
+  --color-yellow: var(--yellow);
+  --color-yellow-light: var(--yellow-light);
+  --color-mint: var(--mint);
+  --color-dark: var(--dark);
+  --color-dark-surface: var(--dark-surface);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -64,15 +71,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* WordPress / blog post content – proper formatting for CMS HTML */
+/* WordPress / blog post content */
 .blog-content {
-  color: var(--espresso);
+  color: var(--text-primary);
   line-height: 1.75;
 }
 
 .blog-content p {
   margin-bottom: 1.25em;
-  color: var(--espresso);
+  color: var(--text-primary);
   opacity: 0.9;
 }
 
@@ -89,7 +96,7 @@ body {
   margin-top: 1.5em;
   margin-bottom: 0.75em;
   font-weight: 700;
-  color: var(--espresso);
+  color: var(--text-primary);
   line-height: 1.3;
 }
 
@@ -136,14 +143,14 @@ body {
 .blog-content blockquote {
   margin: 1.5em 0;
   padding: 0.75em 1.25em;
-  border-left: 4px solid var(--forest);
-  background: rgba(31, 59, 44, 0.06);
-  color: var(--cocoa);
+  border-left: 4px solid var(--brand);
+  background: rgba(91, 81, 255, 0.06);
+  color: var(--text-secondary);
   font-style: italic;
 }
 
 .blog-content a {
-  color: var(--forest);
+  color: var(--brand);
   text-decoration: none;
 }
 
@@ -153,7 +160,7 @@ body {
 
 .blog-content strong {
   font-weight: 700;
-  color: var(--espresso);
+  color: var(--text-primary);
 }
 
 .blog-content em {
@@ -175,7 +182,7 @@ body {
 .blog-content figcaption {
   margin-top: 0.5em;
   font-size: 0.875rem;
-  color: var(--cocoa);
+  color: var(--text-secondary);
   opacity: 0.8;
   text-align: center;
 }
@@ -183,10 +190,9 @@ body {
 .blog-content hr {
   margin: 2em 0;
   border: none;
-  border-top: 1px solid rgba(58, 42, 34, 0.15);
+  border-top: 1px solid rgba(26, 26, 26, 0.15);
 }
 
-/* WordPress block classes (Gutenberg) */
 .blog-content .wp-block-paragraph + .wp-block-paragraph {
   margin-top: 0;
 }
@@ -195,19 +201,29 @@ body {
   margin-top: 1.5em;
   margin-bottom: 0.75em;
   font-weight: 700;
-  color: var(--espresso);
+  color: var(--text-primary);
 }
 
 .blog-content .wp-block-quote {
   margin: 1.5em 0;
   padding: 0.75em 1.25em;
-  border-left: 4px solid var(--forest);
-  background: rgba(31, 59, 44, 0.06);
-  color: var(--cocoa);
+  border-left: 4px solid var(--brand);
+  background: rgba(91, 81, 255, 0.06);
+  color: var(--text-secondary);
   font-style: italic;
 }
 
 .blog-content .wp-block-list {
   margin: 1.25em 0;
   padding-left: 1.5em;
+}
+
+/* Logo carousel animation */
+@keyframes scroll-logos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-logos {
+  animation: scroll-logos 30s linear infinite;
 }

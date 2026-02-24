@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased bg-oat/20 text-espresso font-sans`}
+        className={`${inter.variable} antialiased bg-white text-foreground font-sans`}
       >
         <Navbar links={navLinks.length > 0 ? navLinks : undefined} />
         {children}

@@ -19,12 +19,11 @@ interface NavbarProps {
 export function Navbar({ links }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const navLinks: NavLink[] = links || [
+        { label: "Blog", path: "/blog" },
         { label: "Features", path: "#features" },
-        { label: "Use Cases", path: "#use-cases" },
         { label: "Pricing", path: "#pricing" }
     ]
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
         if (mobileMenuOpen) {
             document.body.style.overflow = "hidden"
@@ -36,7 +35,6 @@ export function Navbar({ links }: NavbarProps) {
         }
     }, [mobileMenuOpen])
 
-    // Close on escape key
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === "Escape") setMobileMenuOpen(false)
@@ -46,7 +44,7 @@ export function Navbar({ links }: NavbarProps) {
     }, [])
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-cocoa/10 bg-oat/80 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/90 backdrop-blur-md">
             <Container>
                 <div className="flex h-14 sm:h-16 items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -61,33 +59,30 @@ export function Navbar({ links }: NavbarProps) {
                         </Link>
                     </div>
 
-                    {/* Desktop nav: visible from md up */}
                     <nav className="hidden md:flex items-center gap-6 lg:gap-8 cursor-pointer [&_a]:cursor-pointer" aria-label="Main navigation">
                         {navLinks.map((link, i) => (
                             <Link
                                 key={link.path ? `${link.path}-${i}` : i}
                                 href={link.path}
-                                className="text-sm font-medium text-espresso/80 hover:text-espresso transition-colors"
+                                className="text-sm font-medium text-zinc-700 hover:text-foreground transition-colors"
                             >
                                 {link.label}
                             </Link>
                         ))}
                     </nav>
 
-                    {/* Desktop CTA: visible from sm up, hidden when mobile menu would show */}
                     <div className="hidden md:flex items-center gap-3 lg:gap-4">
-                        <Link href="https://app.kawhe.shop/login" className="text-sm font-medium text-espresso hover:text-forest cursor-pointer">
-                            Log in
-                        </Link>
-                        <Button size="sm" variant="default" className="rounded-full" asChild>
-                            <Link href="https://app.kawhe.shop/register">Sign up</Link>
+                        <Button size="sm" variant="default" className="rounded-lg" asChild>
+                            <Link href="https://app.kawhe.shop/register">Try Free for 14 Days</Link>
+                        </Button>
+                        <Button size="sm" variant="outline" className="rounded-lg" asChild>
+                            <Link href="https://app.kawhe.shop/login">Login</Link>
                         </Button>
                     </div>
 
-                    {/* Mobile: hamburger button */}
                     <button
                         type="button"
-                        className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-espresso hover:bg-cocoa/10 transition-colors cursor-pointer aria-expanded={mobileMenuOpen}"
+                        className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-zinc-100 transition-colors cursor-pointer"
                         onClick={() => setMobileMenuOpen((open) => !open)}
                         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                     >
@@ -96,38 +91,33 @@ export function Navbar({ links }: NavbarProps) {
                 </div>
             </Container>
 
-            {/* Mobile menu overlay - only render when open so nothing shows through when closed */}
             {mobileMenuOpen && (
             <div
-                className="md:hidden fixed inset-0 top-14 sm:top-16 z-40"
-                style={{ backgroundColor: "var(--oat)" }}
-                aria-hidden={!mobileMenuOpen}
+                className="md:hidden fixed inset-0 top-14 sm:top-16 z-40 bg-white"
             >
                 <nav
-                    className="flex flex-col gap-1 p-4 sm:p-6 [&_a]:cursor-pointer bg-oat"
+                    className="flex flex-col gap-1 p-4 sm:p-6 [&_a]:cursor-pointer"
                     aria-label="Mobile navigation"
                 >
                     {navLinks.map((link, i) => (
                         <Link
                             key={link.path ? `${link.path}-${i}` : i}
                             href={link.path}
-                            className="block py-3 px-4 text-base font-medium text-espresso/90 hover:text-espresso hover:bg-cocoa/5 rounded-lg transition-colors"
+                            className="block py-3 px-4 text-base font-medium text-zinc-700 hover:text-foreground hover:bg-zinc-50 rounded-lg transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             {link.label}
                         </Link>
                     ))}
-                    <div className="mt-4 pt-4 border-t border-cocoa/10 flex flex-col gap-2">
-                        <Link
-                            href="https://app.kawhe.shop/login"
-                            className="block py-3 px-4 text-base font-medium text-espresso hover:text-forest rounded-lg hover:bg-cocoa/5 transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Log in
-                        </Link>
-                        <Button size="default" variant="default" className="rounded-full w-full justify-center" asChild>
+                    <div className="mt-4 pt-4 border-t border-zinc-200 flex flex-col gap-2">
+                        <Button size="default" variant="default" className="rounded-lg w-full justify-center" asChild>
                             <Link href="https://app.kawhe.shop/register" onClick={() => setMobileMenuOpen(false)}>
-                                Sign up
+                                Try Free for 14 Days
+                            </Link>
+                        </Button>
+                        <Button size="default" variant="outline" className="rounded-lg w-full justify-center" asChild>
+                            <Link href="https://app.kawhe.shop/login" onClick={() => setMobileMenuOpen(false)}>
+                                Login
                             </Link>
                         </Button>
                     </div>

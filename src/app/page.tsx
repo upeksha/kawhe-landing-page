@@ -24,16 +24,14 @@ export default async function Home() {
   }
 
   return (
-    <div className="selection:bg-forest/20">
+    <div className="selection:bg-brand/20">
       <main>
         <Hero />
-        {/* <SocialProof /> */}
         <Features />
+        <DashboardPreview />
         <Metrics />
         <HowItWorks />
         <UseCases />
-        <DashboardPreview />
-        {/* <Integrations /> */}
         <Pricing />
         <FAQ items={faqItems} />
       </main>
