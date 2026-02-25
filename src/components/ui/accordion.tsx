@@ -13,11 +13,11 @@ interface AccordionItemProps {
 
 export function AccordionItem({ title, children, isOpen, onClick }: AccordionItemProps) {
     return (
-        <div className="border-b border-zinc-200 last:border-0">
+        <div className="border-b border-cocoa/10 last:border-0">
             <button
                 type="button"
                 onClick={onClick}
-                className="flex w-full items-center justify-between py-4 text-left font-medium text-foreground transition-all hover:text-brand cursor-pointer"
+                className="flex w-full items-center justify-between py-4 text-left font-medium text-espresso transition-all hover:text-forest cursor-pointer"
                 aria-expanded={isOpen}
             >
                 {title}

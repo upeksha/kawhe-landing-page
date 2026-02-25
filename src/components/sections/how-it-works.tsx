@@ -24,14 +24,14 @@ const steps = [
 
 export function HowItWorks() {
     return (
-        <section className="py-24 bg-zinc-50">
+        <section className="py-24 bg-oat/30">
             <Container>
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Launch in three simple steps.</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-espresso mb-4">Launch in three simple steps.</h2>
                 </div>
 
                 <div className="relative grid md:grid-cols-3 gap-12">
-                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-brand/20 -z-10"></div>
+                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-cocoa/10 -z-10"></div>
 
                     {steps.map((step, index) => (
                         <motion.div
@@ -42,13 +42,13 @@ export function HowItWorks() {
                             viewport={{ once: true }}
                             className="flex flex-col items-center text-center"
                         >
-                            <div className="h-24 w-24 rounded-full bg-white border-4 border-brand-light shadow-lg flex items-center justify-center mb-6 z-10 relative">
-                                <step.icon className="h-10 w-10 text-brand" />
-                                <div className="absolute -top-2 -right-2 h-8 w-8 bg-brand text-white rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="h-24 w-24 rounded-full bg-white border-4 border-oat shadow-lg flex items-center justify-center mb-6 z-10 relative">
+                                <step.icon className="h-10 w-10 text-forest" />
+                                <div className="absolute -top-2 -right-2 h-8 w-8 bg-clay text-white rounded-full flex items-center justify-center font-bold text-sm">
                                     {index + 1}
                                 </div>
                             </div>
-                            <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
+                            <h3 className="text-xl font-bold text-espresso mb-3">{step.title}</h3>
                             <p className="text-zinc-600 max-w-xs">{step.description}</p>
                         </motion.div>
                     ))}

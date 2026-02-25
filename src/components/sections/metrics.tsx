@@ -12,13 +12,13 @@ const stats = [
 
 export function Metrics() {
     return (
-        <section className="py-20 bg-brand text-white relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <section className="py-20 bg-forest text-oat relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#F3EFE7_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
             <Container className="relative z-10">
                 <div className="text-center max-w-2xl mx-auto mb-16">
                     <h2 className="text-3xl font-bold text-white mb-4">A smarter way to run loyalty.</h2>
-                    <p className="text-lg text-white/70">Track the basics that actually matter: adoption, usage, and reward redemptions.</p>
+                    <p className="text-lg text-sage/80">Track the basics that actually matter: adoption, usage, and reward redemptions.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
@@ -34,7 +34,7 @@ export function Metrics() {
                             <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">
                                 {stat.value}
                             </div>
-                            <div className="text-sm md:text-base text-white/70 font-medium">
+                            <div className="text-sm md:text-base text-sage/80 font-medium">
                                 {stat.label}
                             </div>
                         </motion.div>

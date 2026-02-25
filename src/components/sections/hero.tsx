@@ -9,7 +9,7 @@ import Image from "next/image"
 export function Hero() {
     return (
         <section className="relative overflow-hidden">
-            <div className="bg-gradient-to-br from-pink via-purple/40 to-brand-light rounded-b-[2rem] md:rounded-b-[3rem]">
+            <div className="bg-gradient-to-br from-sage/40 via-oat to-honey/20 rounded-b-[2rem] md:rounded-b-[3rem]">
                 <Container className="relative z-10 py-16 md:py-24 lg:py-32">
                     <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
                         <div className="flex-1 text-left">
@@ -17,17 +17,17 @@ export function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
-                                className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl mb-6"
+                                className="text-4xl font-extrabold tracking-tight text-espresso sm:text-5xl md:text-6xl lg:text-7xl mb-6"
                             >
                                 Earn money from vouchers that turn into{" "}
-                                <span className="text-foreground">loyal customers</span>
+                                <span className="text-forest">loyal customers</span>
                             </motion.h1>
 
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
-                                className="max-w-lg text-lg text-zinc-600 mb-8"
+                                className="max-w-lg text-lg text-espresso/70 mb-8"
                             >
                                 Get revenue from vouchers, keep customers with loyalty cards, and track data that drives repeat visits.
                             </motion.p>
@@ -38,7 +38,7 @@ export function Hero() {
                                 transition={{ duration: 0.5, delay: 0.3 }}
                                 className="flex flex-col sm:flex-row gap-4 mb-4"
                             >
-                                <Button size="lg" variant="premium" className="rounded-lg px-8" asChild>
+                                <Button size="lg" variant="premium" className="rounded-full px-8" asChild>
                                     <Link href="/signup">
                                         Create your voucher for FREE
                                     </Link>
@@ -49,7 +49,7 @@ export function Hero() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
-                                className="text-sm text-purple italic"
+                                className="text-sm text-cocoa/60 italic"
                             >
                                 Works with Apple Wallet and Google Wallet
                             </motion.p>
@@ -77,9 +77,9 @@ export function Hero() {
             {/* Logo strip / social proof */}
             <div className="py-10 overflow-hidden">
                 <Container>
-                    <div className="flex items-center justify-center gap-12 opacity-60 flex-wrap">
+                    <div className="flex items-center justify-center gap-12 opacity-50 flex-wrap">
                         {["Off The Hook", "Waterfront Café", "The Daily Grind", "Bean & Leaf", "Rise & Pour", "Espresso Lane", "The Copper Cup"].map((name) => (
-                            <span key={name} className="text-lg font-bold text-zinc-400 whitespace-nowrap">
+                            <span key={name} className="text-lg font-bold text-cocoa/50 whitespace-nowrap">
                                 {name}
                             </span>
                         ))}

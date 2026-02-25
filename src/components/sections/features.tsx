@@ -11,35 +11,35 @@ const featureBlocks = [
     {
         title: "Turn one-time visitors into",
         highlight: "loyal regulars",
-        highlightColor: "bg-brand",
+        highlightColor: "bg-forest text-white",
         description: "Kawhe lets you create a digital loyalty program directly in Apple Wallet and Google Wallet. Customers collect points or stamps and you motivate them to return using rewards and push notifications.",
         cta: "Launch your loyalty program",
-        ctaVariant: "outline-brand" as const,
+        ctaVariant: "outline-forest" as const,
         image: "/iphone.png",
-        bgColor: "bg-brand",
+        bgColor: "bg-forest",
         reverse: false,
     },
     {
         title: "Create",
         highlight: "a new revenue stream",
-        highlightColor: "bg-purple",
+        highlightColor: "bg-clay text-white",
         titleSuffix: "for your business with digital vouchers",
         description: "Earn even outside your opening hours thanks to digital vouchers that customers save to Apple Wallet and Google Wallet.",
         cta: "Launch digital vouchers",
-        ctaVariant: "outline-brand" as const,
+        ctaVariant: "outline-clay" as const,
         image: "/iphone.png",
-        bgColor: "bg-purple",
+        bgColor: "bg-clay",
         reverse: true,
     },
     {
         title: "Manage invite-only VIP cards with",
         highlight: "full control and analytics",
-        highlightColor: "bg-yellow",
+        highlightColor: "bg-honey text-espresso",
         description: "Give selected customers exclusive VIP status with special perks. You choose who gets the card and what benefits they receive.",
         cta: "Get started with VIP cards",
-        ctaVariant: "outline-yellow" as const,
+        ctaVariant: "outline-honey" as const,
         image: "/iphone.png",
-        bgColor: "bg-yellow",
+        bgColor: "bg-honey",
         reverse: false,
     },
 ]
@@ -59,17 +59,17 @@ export function Features() {
                             className={`flex flex-col ${block.reverse ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-12 lg:gap-20`}
                         >
                             <div className="flex-1 max-w-xl">
-                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight mb-6">
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-espresso leading-tight mb-6">
                                     {block.title}{" "}
-                                    <span className={`${block.highlightColor} text-white px-2 py-0.5 inline-block`}>
+                                    <span className={`${block.highlightColor} px-2 py-0.5 inline-block`}>
                                         {block.highlight}
                                     </span>
                                     {block.titleSuffix && <> {block.titleSuffix}</>}
                                 </h2>
-                                <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
+                                <p className="text-lg text-espresso/70 mb-8 leading-relaxed">
                                     {block.description}
                                 </p>
-                                <Button variant={block.ctaVariant} className="rounded-lg" asChild>
+                                <Button variant={block.ctaVariant} className="rounded-full" asChild>
                                     <Link href="/signup">
                                         {block.cta} <ArrowRight className="ml-2 h-4 w-4" />
                                     </Link>

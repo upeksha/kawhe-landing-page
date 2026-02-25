@@ -44,7 +44,7 @@ export function Navbar({ links }: NavbarProps) {
     }, [])
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/90 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full border-b border-cocoa/10 bg-oat/80 backdrop-blur-md">
             <Container>
                 <div className="flex h-14 sm:h-16 items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -64,7 +64,7 @@ export function Navbar({ links }: NavbarProps) {
                             <Link
                                 key={link.path ? `${link.path}-${i}` : i}
                                 href={link.path}
-                                className="text-sm font-medium text-zinc-700 hover:text-foreground transition-colors"
+                                className="text-sm font-medium text-espresso/80 hover:text-espresso transition-colors"
                             >
                                 {link.label}
                             </Link>
@@ -72,17 +72,17 @@ export function Navbar({ links }: NavbarProps) {
                     </nav>
 
                     <div className="hidden md:flex items-center gap-3 lg:gap-4">
-                        <Button size="sm" variant="default" className="rounded-lg" asChild>
+                        <Button size="sm" variant="default" className="rounded-full" asChild>
                             <Link href="https://app.kawhe.shop/register">Try Free for 14 Days</Link>
                         </Button>
-                        <Button size="sm" variant="outline" className="rounded-lg" asChild>
+                        <Button size="sm" variant="outline" className="rounded-full" asChild>
                             <Link href="https://app.kawhe.shop/login">Login</Link>
                         </Button>
                     </div>
 
                     <button
                         type="button"
-                        className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-zinc-100 transition-colors cursor-pointer"
+                        className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-espresso hover:bg-cocoa/10 transition-colors cursor-pointer"
                         onClick={() => setMobileMenuOpen((open) => !open)}
                         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                     >
@@ -93,29 +93,30 @@ export function Navbar({ links }: NavbarProps) {
 
             {mobileMenuOpen && (
             <div
-                className="md:hidden fixed inset-0 top-14 sm:top-16 z-40 bg-white"
+                className="md:hidden fixed inset-0 top-14 sm:top-16 z-40"
+                style={{ backgroundColor: "var(--oat)" }}
             >
                 <nav
-                    className="flex flex-col gap-1 p-4 sm:p-6 [&_a]:cursor-pointer"
+                    className="flex flex-col gap-1 p-4 sm:p-6 [&_a]:cursor-pointer bg-oat"
                     aria-label="Mobile navigation"
                 >
                     {navLinks.map((link, i) => (
                         <Link
                             key={link.path ? `${link.path}-${i}` : i}
                             href={link.path}
-                            className="block py-3 px-4 text-base font-medium text-zinc-700 hover:text-foreground hover:bg-zinc-50 rounded-lg transition-colors"
+                            className="block py-3 px-4 text-base font-medium text-espresso/90 hover:text-espresso hover:bg-cocoa/5 rounded-lg transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             {link.label}
                         </Link>
                     ))}
-                    <div className="mt-4 pt-4 border-t border-zinc-200 flex flex-col gap-2">
-                        <Button size="default" variant="default" className="rounded-lg w-full justify-center" asChild>
+                    <div className="mt-4 pt-4 border-t border-cocoa/10 flex flex-col gap-2">
+                        <Button size="default" variant="default" className="rounded-full w-full justify-center" asChild>
                             <Link href="https://app.kawhe.shop/register" onClick={() => setMobileMenuOpen(false)}>
                                 Try Free for 14 Days
                             </Link>
                         </Button>
-                        <Button size="default" variant="outline" className="rounded-lg w-full justify-center" asChild>
+                        <Button size="default" variant="outline" className="rounded-full w-full justify-center" asChild>
                             <Link href="https://app.kawhe.shop/login" onClick={() => setMobileMenuOpen(false)}>
                                 Login
                             </Link>

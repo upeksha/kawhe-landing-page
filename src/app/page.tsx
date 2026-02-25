@@ -24,7 +24,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="selection:bg-brand/20">
+    <div className="selection:bg-forest/20">
       <main>
         <Hero />
         <Features />

@@ -28,12 +28,13 @@ export function FAQ({ items }: FAQProps) {
         <section className="py-24 bg-white">
             <Container>
                 <div className="max-w-2xl mx-auto mb-20">
-                    <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl font-bold text-espresso mb-8 text-center">Frequently Asked Questions</h2>
                     <Accordion items={faqItems} />
                 </div>
 
-                <div className="bg-brand rounded-[2rem] p-8 md:p-16 text-center text-white relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+                <div className="bg-espresso rounded-[2rem] p-8 md:p-16 text-center text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-forest/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-clay/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
                     <div className="relative z-10 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
@@ -43,17 +44,17 @@ export function FAQ({ items }: FAQProps) {
                             Launch a premium Wallet loyalty pass for your café — fast to set up, easy to use, and built to drive repeat visits.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-                            <Button size="lg" className="rounded-lg px-8 bg-white text-brand hover:bg-white/90" asChild>
+                            <Button size="lg" className="rounded-full px-8 bg-forest hover:bg-forest/90 text-white" asChild>
                                 <Link href="/demo">
                                     Book a demo
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
-                            <Button size="lg" variant="outline" className="rounded-lg px-8 border-white/30 text-white hover:bg-white/10 bg-transparent" asChild>
+                            <Button size="lg" variant="outline" className="rounded-full px-8 border-white/20 text-white hover:bg-white/10 bg-transparent" asChild>
                                 <Link href="/signup">Start free trial</Link>
                             </Button>
                         </div>
-                        <p className="text-sm text-white/50">We&apos;ll help you get your first pass live.</p>
+                        <p className="text-sm text-white/40">We&apos;ll help you get your first pass live.</p>
                     </div>
                 </div>
             </Container>
@@ -90,8 +91,8 @@ export function Footer({ productLinks, companyLinks }: FooterProps) {
     const policyLinks = companyLinks || defaultCompanyLinks;
 
     return (
-        <footer className="bg-dark text-white py-16 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <footer className="bg-espresso text-oat py-16 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#F3EFE7_1px,transparent_1px)] [background-size:24px_24px]"></div>
 
             <Container className="relative z-10">
                 <div className="grid md:grid-cols-4 gap-12 mb-16">
