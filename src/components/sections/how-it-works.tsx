@@ -2,54 +2,65 @@
 
 import { Container } from "@/components/ui/container"
 import { motion } from "framer-motion"
-import { PencilRuler, QrCode, RefreshCcw } from "lucide-react"
+import { PencilRuler, QrCode, ScanLine, RefreshCcw } from "lucide-react"
 
 const steps = [
     {
         icon: PencilRuler,
-        title: "1. Create your pass",
-        description: "Choose a layout, add your logo, and match your café's colours. Keep it clean, premium, and on-brand."
+        step: "01",
+        title: "Create your program",
+        description: "Set up your loyalty card in minutes. Choose your reward rules, add your logo, and match your brand. No design skills needed."
     },
     {
         icon: QrCode,
-        title: "2. Share with a QR or link",
-        description: "Place a QR at the counter, add a link to receipts or socials, or send via SMS/email. Customers add to Wallet in seconds."
+        step: "02",
+        title: "Customers join instantly",
+        description: "Share a QR code or link. Customers join in seconds — no app download required. Their card lives on their phone or in Apple/Google Wallet."
+    },
+    {
+        icon: ScanLine,
+        step: "03",
+        title: "Staff stamp with a tap",
+        description: "Your team uses the scanner app to add stamps or redeem rewards. It takes two seconds, even during the morning rush."
     },
     {
         icon: RefreshCcw,
-        title: "3. Stamp & notify in real time",
-        description: "Stamp visits instantly. Reward progress updates automatically. Optional reminders help bring people back — without feeling spammy."
+        step: "04",
+        title: "Customers come back",
+        description: "Stamp progress motivates return visits. Notifications keep your café top of mind. Regulars are built, not bought."
     }
 ]
 
 export function HowItWorks() {
     return (
-        <section className="py-24 bg-oat/30">
+        <section className="py-24 bg-white" id="how-it-works">
             <Container>
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-espresso mb-4">Launch in three simple steps.</h2>
+                    <span className="text-sm font-semibold text-clay uppercase tracking-wider mb-2 block">How it works</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-espresso mb-4">Up and running in four simple steps</h2>
+                    <p className="text-lg text-espresso/60 max-w-2xl mx-auto">From sign-up to your first returning customer — the whole flow is designed to be fast and simple.</p>
                 </div>
 
-                <div className="relative grid md:grid-cols-3 gap-12">
-                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-cocoa/10 -z-10"></div>
-
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {steps.map((step, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.2 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="flex flex-col items-center text-center"
+                            className="relative text-center group"
                         >
-                            <div className="h-24 w-24 rounded-full bg-white border-4 border-oat shadow-lg flex items-center justify-center mb-6 z-10 relative">
-                                <step.icon className="h-10 w-10 text-forest" />
-                                <div className="absolute -top-2 -right-2 h-8 w-8 bg-clay text-white rounded-full flex items-center justify-center font-bold text-sm">
-                                    {index + 1}
-                                </div>
+                            <div className="text-4xl font-extrabold text-oat mb-4 select-none">{step.step}</div>
+                            <div className="h-14 w-14 rounded-2xl bg-forest/10 flex items-center justify-center mb-5 mx-auto group-hover:bg-forest/20 transition-colors">
+                                <step.icon className="h-7 w-7 text-forest" />
                             </div>
-                            <h3 className="text-xl font-bold text-espresso mb-3">{step.title}</h3>
-                            <p className="text-zinc-600 max-w-xs">{step.description}</p>
+                            <h3 className="text-lg font-bold text-espresso mb-2">{step.title}</h3>
+                            <p className="text-sm text-espresso/60 leading-relaxed">{step.description}</p>
+
+                            {index < steps.length - 1 && (
+                                <div className="hidden lg:block absolute top-8 -right-4 w-8 h-0.5 bg-cocoa/10"></div>
+                            )}
                         </motion.div>
                     ))}
                 </div>

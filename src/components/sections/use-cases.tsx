@@ -2,50 +2,50 @@
 
 import { Container } from "@/components/ui/container"
 import { motion } from "framer-motion"
-import { Coffee, Gift, Star, Calendar } from "lucide-react"
+import { Coffee, Gift, Star, Calendar, Ticket, Building2 } from "lucide-react"
 
 const cases = [
     {
         icon: Coffee,
         title: "Classic stamp card",
-        description: "Buy 9, get 1 free — in Wallet.",
+        description: "Buy 9, get the 10th free — the digital version of the card your customers already love.",
         color: "bg-forest",
-        text: "text-white"
+        iconColor: "text-white/90"
     },
     {
         icon: Gift,
-        title: "Free coffee reward",
-        description: "Clear progress. Easy redemption.",
+        title: "Reward-based offers",
+        description: "Set custom reward thresholds — free coffee, discounts, upgrades — whatever fits your menu.",
         color: "bg-honey",
-        text: "text-espresso"
+        iconColor: "text-espresso/80"
     },
     {
         icon: Star,
-        title: "VIP perks",
-        description: "Treat regulars with member-only offers.",
+        title: "VIP member cards",
+        description: "Create invite-only cards for your best customers with exclusive perks and early access.",
         color: "bg-clay",
-        text: "text-white"
+        iconColor: "text-white/90"
     },
     {
         icon: Calendar,
-        title: "Seasonal campaigns",
-        description: "Limited-time rewards and specials.",
+        title: "Seasonal promotions",
+        description: "Run limited-time campaigns tied to holidays, new menu items, or slow-day specials.",
         color: "bg-sage",
-        text: "text-espresso"
+        iconColor: "text-espresso/80"
     },
     {
-        icon: Coffee,
-        title: "Slow-day boost",
-        description: "Run a quick promo when you need it.",
+        icon: Ticket,
+        title: "Voucher campaigns",
+        description: "Create and distribute digital vouchers your customers save to their phone wallet.",
         color: "bg-cocoa",
-        text: "text-oat"
+        iconColor: "text-oat"
     },
     {
-        icon: Star,
-        title: "Multi-store ready",
-        description: "Great for small groups and growing brands.",
+        icon: Building2,
+        title: "Multi-store loyalty",
+        description: "Run one loyalty program across multiple locations. Customers earn and redeem anywhere.",
         color: "bg-espresso",
-        text: "text-white"
+        iconColor: "text-white/90"
     }
 ]
 
@@ -54,8 +54,9 @@ export function UseCases() {
         <section className="py-24 bg-white" id="use-cases">
             <Container>
                 <div className="text-center mb-16">
-                    <span className="text-sm font-semibold text-clay uppercase tracking-wider mb-2 block">Versatility</span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-espresso mb-4">Made for everyday café loyalty.</h2>
+                    <span className="text-sm font-semibold text-clay uppercase tracking-wider mb-2 block">Use cases</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-espresso mb-4">Built for more than just stamps</h2>
+                    <p className="text-lg text-espresso/60 max-w-2xl mx-auto">Start with a stamp card. Expand into vouchers, VIP programs, and seasonal campaigns as you grow.</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -64,17 +65,15 @@ export function UseCases() {
                             key={index}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.5, delay: index * 0.08 }}
                             viewport={{ once: true }}
-                            className={`p-6 rounded-2xl ${item.color} ${item.text} h-full flex flex-col justify-between hover:shadow-lg transition-shadow`}
+                            className={`p-6 rounded-2xl ${item.color} h-full hover:shadow-lg transition-shadow`}
                         >
-                            <div>
-                                <item.icon className={`h-8 w-8 mb-4 ${item.text === "text-white" || item.text === "text-oat" ? "text-white/90" : "text-espresso/80"}`} />
-                                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                                <p className="opacity-90 leading-relaxed text-sm">
-                                    {item.description}
-                                </p>
-                            </div>
+                            <item.icon className={`h-8 w-8 mb-4 ${item.iconColor}`} />
+                            <h3 className={`text-lg font-bold mb-2 ${item.iconColor === "text-espresso/80" ? "text-espresso" : "text-white"}`}>{item.title}</h3>
+                            <p className={`text-sm leading-relaxed ${item.iconColor === "text-espresso/80" ? "text-espresso/70" : "text-white/70"}`}>
+                                {item.description}
+                            </p>
                         </motion.div>
                     ))}
                 </div>
