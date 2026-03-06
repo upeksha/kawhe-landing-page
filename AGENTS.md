@@ -20,3 +20,8 @@
 - **Environment variables** (optional, have sensible defaults):
   - `NEXT_PUBLIC_WORDPRESS_API_URL` — defaults to `https://cms.kawhe.shop/graphql`
   - `NEXT_PUBLIC_WORDPRESS_MENU_LOCATION` — defaults to `MENU_1`
+
+### Deployment
+
+- **Vercel:** The site is deployed to Vercel. To redeploy, run `vercel --token "$VERCEL_TOKEN" --yes --prod --scope upekshamendiz-gmailcoms-projects` from the workspace root. Requires `VERCEL_TOKEN` secret.
+- **Live URL:** `https://workspace-nine-nu-10.vercel.app`
