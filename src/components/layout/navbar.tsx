@@ -19,7 +19,7 @@ interface NavbarProps {
 export function Navbar({ links }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const navLinks: NavLink[] = links || [
-        { label: "How it works", path: "#how-it-works" },
+        { label: "How it works", path: "/how-it-works" },
         { label: "Features", path: "#features" },
         { label: "Pricing", path: "#pricing" },
         { label: "Blog", path: "/blog" }

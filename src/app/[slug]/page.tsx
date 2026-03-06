@@ -18,7 +18,7 @@ export async function generateMetadata({
 }
 
 /** Reserved paths that are handled by other routes (e.g. /blog) */
-const RESERVED_SLUGS = ["blog", "demo", "signup"];
+const RESERVED_SLUGS = ["blog", "demo", "signup", "how-it-works"];
 
 export async function generateStaticParams() {
   const pages = await getAllPages();
